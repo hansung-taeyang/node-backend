@@ -1,0 +1,19 @@
+services:
+  # backend:
+  #   image: backend
+  #   build:
+  #     context: ./back-node
+  #   ports:
+  #     - "3000:3000"
+  #   working_dir: /app
+  db:
+    image: mysql:lts
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root # change in production
+
+volumes:
+  db_data:
