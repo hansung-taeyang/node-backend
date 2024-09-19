@@ -1,8 +1,8 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import mysql from "mysql2/promise";
-import config from "../config.js";
+import mysql from "mysql2";
+import config from "../config";
 
-export const conn = await mysql.createConnection({
+export const conn = mysql.createConnection({
     host: config.MYSQL_HOST,
     port: parseInt(config.MYSQL_PORT),
     user: config.MYSQL_USER,
