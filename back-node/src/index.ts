@@ -1,14 +1,15 @@
 import express, { type Request, type Response } from "express";
-import config from "./config";
+import env from "./config";
 
 const server = express();
 
-server.use(express.json())
+server.use(express.json());
+server.use(express.urlencoded());
 
 server.get("/", (req: Request, res: Response) => {
   res.send("Hello from back-node");
 });
 
-server.listen(config.EXPRESS_PORT, () => {
-  console.log(`Server running on http://localhost:${config.EXPRESS_PORT}`);
+server.listen(parseInt(env.EXPRESS_PORT), () => {
+  console.log(`Server running on http://localhost:${env.EXPRESS_PORT}`);
 });
