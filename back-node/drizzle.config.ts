@@ -1,8 +1,5 @@
 import {defineConfig} from "drizzle-kit";
-import dotenvx from "@dotenvx/dotenvx"
-import config from "./src/config.js";
-
-dotenvx.config();
+import config from "./src/config";
 
 export default defineConfig({
   schema: "./src/db/schema/*",
@@ -10,6 +7,7 @@ export default defineConfig({
   dialect: "mysql",
   dbCredentials: {
     host: config.MYSQL_HOST,
+    port: parseInt(config.MYSQL_PORT),
     user: config.MYSQL_USER,
     password: config.MYSQL_PASSWORD,
     database: config.MYSQL_DATABASE,
