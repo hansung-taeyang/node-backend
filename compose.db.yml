@@ -1,11 +1,4 @@
 services:
-  # backend:
-  #   image: backend
-  #   build:
-  #     context: ./back-node
-  #   ports:
-  #     - "3000:3000"
-  #   working_dir: /app
   db:
     image: mysql:lts
     ports:
@@ -21,5 +14,4 @@ volumes:
   db_data:
 
 networks:
-  frontend:
   backend:

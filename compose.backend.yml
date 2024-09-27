@@ -1,0 +1,20 @@
+services:
+  backend:
+    image: backend
+    build:
+      context: ./back-node
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    
+    # To be removed in production
+    env_file:
+      - "back-node/.env"
+    
+    networks:
+      - frontend
+      - backend
+
+networks:
+  frontend:
+  backend:
