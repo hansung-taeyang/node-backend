@@ -17,7 +17,9 @@
         "@dotenvx/dotenvx": "^1.14.0",
         "drizzle-orm": "^0.33.0",
         "express": "^4.21.0",
-        "mysql2": "^3.11.2"
+        "mysql2": "^3.11.2",
+        "pino": "^9.4.0",
+        "pino-pretty": "^11.2.2"
     },
     "devDependencies": {
         "@eslint/js": "^9.10.0",
