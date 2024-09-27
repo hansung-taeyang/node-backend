@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 import env from "./utils/config";
-import {logger} from "./utils/logger";
+import logger from "./utils/logger";
 
 const server = express();
 
@@ -13,7 +13,11 @@ server.get("/", (req: Request, res: Response) => {
   logger.warn("This is %s", "warning");
 });
 
+server.all("*", (req: Request, res: Response) => {
+  res.status(404).send("Not found");
+});
 
 server.listen(parseInt(env.EXPRESS_PORT), () => {
-  console.log(`Server running on http://localhost:${env.EXPRESS_PORT}`);
+  logger.info(`TEST: ${env.TEST}`);
+  logger.info(`Server running on http://localhost:${env.EXPRESS_PORT}`);
 });
