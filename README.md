@@ -10,9 +10,10 @@
 // TODO Something to do...
 ```
 
-<img src="assets/comment-anchor.png", alt="comment anchor" width="500" />
+<img src="/assets/comment-anchor.png" alt="comment anchor" width="500" />
 
 위와 같은 형식으로 작성하면 에디터 왼편에 닻 아이콘이 떠서 중요한 주석들을 쉽게 확인 가능합니다. 사이드 바의 닻 아이콘을 누르면 리스트로도 주요한 주석들을 모아 볼 수 있습니다. 자세한 내용은 위 링크를 참조하세요.
 
-<img src="assets/thunder-client.png.png", alt="thunder client" width="700" />
-또한 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)도 설치되어 있습니다. API 테스트 시 간편하게 UI로 테스트해 볼 수 있습니다. 사이드 바에 번개 아이콘을 클릭하면 사용할 수 있습니다.
+<img src="/assets/thunder-client.png" alt="thunder client" width="700" />
+
+또한 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) 도 설치되어 있습니다. API 테스트 시 간편하게 UI로 테스트해 볼 수 있습니다. 사이드 바에 번개 아이콘을 클릭하면 사용할 수 있습니다.
