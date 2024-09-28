@@ -18,3 +18,20 @@
     - 참고: [Drizzle 스키마 생성](https://orm.drizzle.team/docs/sql-schema-declaration) 및 [Drizzle 마이그레이션](https://orm.drizzle.team/docs/migrations)
 
 이외의 추가할 내용이 있다면 본 문서 수정 가능.
+
+## 메모
+
+TypeScript 코드 작성 시, **ES6 문법**에 맞추어 작성해주세요. 아래와 같습니다.
+
+```javascript
+// const lib = require("someLib"); // ❌
+
+// export default ...인 경우
+import lib from "someLib";
+
+// export ...인 경우
+import { namedStuff, type someType } from "otherLib";
+```
+
+`tsconfig.json` 설정 상, Top-level await은 사용할 수 없습니다. `(async ()=> {...})();` 와 같은 [IIFE (mdn web docs)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)를 사용해야 합니다.
+
