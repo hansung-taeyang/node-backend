@@ -17,3 +17,12 @@
 <img src="/assets/thunder-client.png" alt="thunder client" width="700" />
 
 또한 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) 도 설치되어 있습니다. API 테스트 시 간편하게 UI로 테스트해 볼 수 있습니다. 사이드 바에 번개 아이콘을 클릭하면 사용할 수 있습니다.
+
+---
+
+<img src="/assets/profile.png" alt="profile" width="500" />
+
+프로필을 불러오려면 사이드 바 최하단 아이콘 - Profiles를 클릭하여 프로필 리스트를 열어볼 수 있습니다.
+
+<img src="/assets/profile2.png" alt="profile2" width="500" />
+프로필은 위 스크린샷처럼 불러올 수 있고, 프로필을 선택해서 사용하려면 불러온 프로필 리스트에서 체크 ✓ 표시를 눌러 사용하면 됩니다.
