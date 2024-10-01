@@ -9,7 +9,7 @@
 1. 본 저장소 클론
 2. `backend-dev` 브랜치로 체크아웃
 3. `cd back-node && npm i`
-4. DB(MySQL) 구동 필요시 프로젝트 루트 폴더에서 `docker compose -f db-compose.yml up -d`으로 Docker에서 DB 구동
+4. DB(MySQL) 구동 필요시 프로젝트 루트 폴더에서 `docker compose -f compose.db.yml up -d`으로 Docker에서 DB 구동
     - `localhost:3307`로 접근 가능
 5. 개발 단계용 `.env` 파일은 말하면 제공함. API 키를 넣을 수도 있기 때문에 직접 커밋하지 않음.
 6. DB 스키마 생성 및 마이그레이션 시 `npm run db` 사용.
