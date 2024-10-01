@@ -6,13 +6,17 @@
 - Node LTS 버젼(v.20)
 
 ## 개발 시작 방법
-1. 본 저장소 클론
-2. `backend-dev` 브랜치로 체크아웃
-3. `cd back-node && npm i`
-4. DB(MySQL) 구동 필요시 프로젝트 루트 폴더에서 `docker compose -f compose.db.yml up -d`으로 Docker에서 DB 구동
+
+[메인 저장소](https://github.com/hansung-taeyang/precapstone-ppurio-service)를 참고하여 방금 막 클론해왔다고 가정합니다.
+
+1. `dev` 브랜치로 체크아웃
+2. `npm install`로 의존성 패키지 설치
+3.  `npm run dev`로 로컬로 서버 구동
+4. DB(MySQL) 구동 필요시 `docker compose -f ../compose.db.yml up -d`으로 Docker에서 DB 구동
     - `localhost:3307`로 접근 가능
 5. 개발 단계용 `.env` 파일은 말하면 제공함. API 키를 넣을 수도 있기 때문에 직접 커밋하지 않음.
 6. DB 스키마 생성 및 마이그레이션 시 `npm run db` 사용.
+    -  4번 항목으로 DB를 먼저 가동시킨 후에 사용 가능합니다.
     - `db:generate`: 스키마를 기반으로 SQL 파일 생성
     - `db:migrate`: MySQL로 마이그레이션 실행
     - 참고: [Drizzle 스키마 생성](https://orm.drizzle.team/docs/sql-schema-declaration) 및 [Drizzle 마이그레이션](https://orm.drizzle.team/docs/migrations)
