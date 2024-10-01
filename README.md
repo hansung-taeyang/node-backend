@@ -1,28 +1,37 @@
-# precapstone-2024
+# Backend README
 
-## Visual Studio Code profile 참고
-프로젝트 루트에 있는 `Pre-capstone.code-profile`은 VS Code의 Profile 기능에서 Import(불러오기) 가능한 파일입니다. 본 프로젝트에 필요한 익스텐션이나 일부 세팅같은게 준비되어있으니 직접 불러오셔서 마음에 맞게 수정해서 쓰면 됩니다.
+## 준비물
+- [Docker](https://www.docker.com/)
+- Visual Studio Code
+- Node LTS 버젼(v.20)
 
-본 프로필에는 [Comment Anchors](https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors) 익스텐션이 설치되어 있습니다.
+## 개발 시작 방법
+1. 본 저장소 클론
+2. `backend-dev` 브랜치로 체크아웃
+3. `cd back-node && npm i`
+4. DB(MySQL) 구동 필요시 프로젝트 루트 폴더에서 `docker compose -f compose.db.yml up -d`으로 Docker에서 DB 구동
+    - `localhost:3307`로 접근 가능
+5. 개발 단계용 `.env` 파일은 말하면 제공함. API 키를 넣을 수도 있기 때문에 직접 커밋하지 않음.
+6. DB 스키마 생성 및 마이그레이션 시 `npm run db` 사용.
+    - `db:generate`: 스키마를 기반으로 SQL 파일 생성
+    - `db:migrate`: MySQL로 마이그레이션 실행
+    - 참고: [Drizzle 스키마 생성](https://orm.drizzle.team/docs/sql-schema-declaration) 및 [Drizzle 마이그레이션](https://orm.drizzle.team/docs/migrations)
 
-```md
-// NOTE Some note...
-// TODO Something to do...
+이외의 추가할 내용이 있다면 본 문서 수정 가능.
+
+## 메모
+
+TypeScript 코드 작성 시, **ES6 문법**에 맞추어 작성해주세요. 아래와 같습니다.
+
+```javascript
+// const lib = require("someLib"); // ❌
+
+// export default ...인 경우
+import lib from "someLib";
+
+// export ...인 경우
+import { namedStuff, type someType } from "otherLib";
 ```
 
-<img src="/assets/comment-anchor.png" alt="comment anchor" width="500" />
+`tsconfig.json` 설정 상, Top-level await은 사용할 수 없습니다. `(async ()=> {...})();` 와 같은 [IIFE (mdn web docs)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)를 사용해야 합니다.
 
-위와 같은 형식으로 작성하면 에디터 왼편에 닻 아이콘이 떠서 중요한 주석들을 쉽게 확인 가능합니다. 사이드 바의 닻 아이콘을 누르면 리스트로도 주요한 주석들을 모아 볼 수 있습니다. 자세한 내용은 위 링크를 참조하세요.
-
-<img src="/assets/thunder-client.png" alt="thunder client" width="700" />
-
-또한 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) 도 설치되어 있습니다. API 테스트 시 간편하게 UI로 테스트해 볼 수 있습니다. 사이드 바에 번개 아이콘을 클릭하면 사용할 수 있습니다.
-
----
-
-<img src="/assets/profile.png" alt="profile" width="500" />
-
-프로필을 불러오려면 사이드 바 최하단 아이콘 - Profiles를 클릭하여 프로필 리스트를 열어볼 수 있습니다.
-
-<img src="/assets/profile2.png" alt="profile2" width="500" />
-프로필은 위 스크린샷처럼 불러올 수 있고, 프로필을 선택해서 사용하려면 불러온 프로필 리스트에서 체크 ✓ 표시를 눌러 사용하면 됩니다.
