@@ -165,9 +165,9 @@ unlinked_spec.ds
 
 # Linux
 **/linux/flutter/ephemeral/
-**/linux/flutter/generated_plugin_registrant.cc
-**/linux/flutter/generated_plugin_registrant.h
-**/linux/flutter/generated_plugins.cmake
+front-flutter/linux/flutter/generated_plugin_registrant.cc
+front-flutter/linux/flutter/generated_plugin_registrant.h
+front-flutter/linux/flutter/generated_plugins.cmake
 
 # Coverage
 coverage/
@@ -183,6 +183,7 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
+
 ### Node ###
 # Logs
 logs
