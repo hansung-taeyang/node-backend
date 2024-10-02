@@ -3,8 +3,8 @@ import bodyParser from "body-parser";
 import env from "./utils/config";
 import logger from "./utils/logger";
 
-import sample from "./routes/sample";
-import swagger from "./routes/swagger";
+import sample from "./router/sample";
+import swagger from "./router/swagger";
 
 const server = express();
 
