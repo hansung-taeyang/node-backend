@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from "express";
+import bodyParser from "body-parser";
 import env from "./utils/config";
 import logger from "./utils/logger";
 
@@ -8,8 +9,9 @@ import swagger from "./routes/swagger";
 const server = express();
 
 // NOTE - Middlewares
-server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+server.use(bodyParser.json());
 
 //NOTE - Routes
 server.use("/sample", sample);
