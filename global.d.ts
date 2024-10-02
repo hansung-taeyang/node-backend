@@ -9,6 +9,7 @@ declare global {
       MYSQL_PASSWORD: string;
       MYSQL_DATABASE: string;
       TEST: string;
+      OPEN_API_KEY: string;
       // Add more environment variables here...
     }
   }
