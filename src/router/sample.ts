@@ -1,3 +1,5 @@
+// 참고: https://github.com/Surnet/swagger-jsdoc/tree/v7/docs
+
 import { Router, type Request, type Response } from "express";
 
 const router = Router();
