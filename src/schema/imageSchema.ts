@@ -1,14 +1,27 @@
 import { z } from "zod";
 
 /**
- * - POST /createImage의 request body의 스키마(규칙)  
- * - middleware/validate.ts의 validated에서 사용자 request body가 유효한 형식인지 검증할 때 사용
+ * @openapi
+ * components:
+ *   schemas:
+ *     CreateImageRequest:
+ *       type: object
+ *       properties:
+ *         prompt:
+ *           type: string
+ *           description: The text prompt to generate the image.
+ *         style:
+ *           type: string
+ *           description: The style of the image to be generated. Can be either "vivid" or "natural".
+ *       example:
+ *         prompt: Cute norwegian forest cat
+ *         style: natural
  */
-const imageSchema = z.object({
+export const imageSchema = z.object({
   body: z.object({
     prompt: z.string().min(1).max(4000),
-    style: z.enum(["vivid", "natural"])
+    style: z.literal("vivid").or(z.literal("natural"))
   })
 });
 
-export default imageSchema;
+export type CreateImageRequest = z.infer<typeof imageSchema>;
