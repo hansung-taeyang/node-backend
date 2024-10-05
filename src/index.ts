@@ -2,6 +2,7 @@ import express, { type Request, type Response } from "express";
 import bodyParser from "body-parser";
 import env from "./utils/config";
 import logger from "./utils/logger";
+import errorHandler from "./middleware/errorHandler";
 
 import sample from "./router/sample";
 import swagger from "./router/swagger";
@@ -27,6 +28,8 @@ server.get("/", (req: Request, res: Response) => {
 server.all("*", (req: Request, res: Response) => {
   res.status(404).send("Not found");
 });
+
+server.use(errorHandler); // Always be the last middleware
 
 server.listen(parseInt(env.EXPRESS_PORT), () => {
   logger.info(`Server running on http://localhost:${env.EXPRESS_PORT}`);
