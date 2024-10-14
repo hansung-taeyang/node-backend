@@ -1,5 +1,6 @@
 import express, { type Request, type Response } from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import env from "./utils/config";
 import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
@@ -13,6 +14,7 @@ const server = express();
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(bodyParser.json());
+server.use(cookieParser());
 
 //NOTE - Routes
 server.use("/sample", sample);
