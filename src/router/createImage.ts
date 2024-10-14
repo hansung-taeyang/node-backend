@@ -1,0 +1,52 @@
+import { validate } from "../middleware/validate";
+import { imageSchema } from "../schema/imageSchema";
+import { Router } from "express";
+import createImageController from "../controller/createImageController";
+
+const router = Router();
+
+/**
+ * @openapi
+ * /v1/createImage:
+ *  post:
+ *    summary: Create an image from Open AI
+ *    requestBody:
+ *      description: Request body requires prompt string. Style should be either `vivid` or `natural`. (`vivid` is the default)
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/CreateImageRequest'
+ *          example:
+ *            prompt: Cute norwegian forest cat
+ *            style: natural
+ *    responses:
+ *      200:
+ *        description: Successfully created image with revised prompt string.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    revisedPrompt:
+ *                      type: string
+ *                    url:
+ *                      type: string
+ *                  description: The generated image data
+
+ *      500:
+ *        description: Internal server error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  type: string
+ */
+router.post("/", validate(imageSchema), createImageController);
+
+export default router;

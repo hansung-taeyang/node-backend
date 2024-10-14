@@ -5,6 +5,8 @@ import env from "./utils/config";
 import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
 
+import createImage from "./router/createImage";
+
 import sample from "./router/sample";
 import swagger from "./router/swagger";
 
@@ -15,8 +17,10 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(bodyParser.json());
 server.use(cookieParser());
+server.use(express.static("public"));
 
 //NOTE - Routes
+server.use("/v1/createImage", createImage);
 server.use("/sample", sample);
 server.use("/docs", swagger);
 
