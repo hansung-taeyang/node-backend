@@ -1,5 +1,5 @@
 import { validate } from "../middleware/validate";
-import { signUpSchema } from "../schema/signUpSchema";
+import { signUpSchema } from "../zod-schema/signUpSchema";
 import { Router } from "express";
 import signUpController from "../controller/signUpController";
 

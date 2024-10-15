@@ -1,34 +1,39 @@
 import { Request, Response, NextFunction } from "express";
-import { SignUpRequest } from "../schema/signUpSchema";
+import { SignUpRequestBody } from "../zod-schema/signUpSchema";
 import { eq } from "drizzle-orm";
-import logger from "../utils/logger";
 import { db } from "../db/db";
 import { NewUser, users } from "../db/tables/users";
-const signUpController = async (req: Request, res: Response, next: NextFunction) => {
+import { StatusCodes } from "http-status-codes";
 
-  const { email, password, phone} = req.body as SignUpRequest["body"];
+const signUpController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { email, password, phone } = req.body as SignUpRequestBody["body"];
 
   try {
+    const result = await db.query.users.findFirst({
+      where: eq(users.emailId, email)
+    });
 
-    const user = await db.select().from(users).where(eq(users.emailId, email));
-
-    logger.info(email, password, phone);
-
-    if (user.length > 0) {
-      return res.status(409).json({ message: "User already exists" });
+    // if user already exists, return 409 Conflict
+    if (result === undefined) {
+      return res.status(StatusCodes.CONFLICT).json({ message: "User already exists" });
     }
 
-    const newUser = await db.insert(users).values({
+    const newUser: NewUser = {
       emailId: email,
       password: password,
-      phone: phone,
-    } as NewUser);
+      phone: phone
+    };
+    
+    await db.insert(users).values(newUser);
 
-    return res.status(201).json({ message: "User created successfully" });
-  }
-  catch (error) {
+    return res.status(StatusCodes.CREATED).json({ message: "User created successfully" });
+  } catch (error) {
     next(error);
   }
-  };
+};
 
 export default signUpController;
