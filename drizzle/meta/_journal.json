@@ -8,6 +8,13 @@
       "when": 1726247507438,
       "tag": "0000_massive_vulcan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1728975341675,
+      "tag": "0001_faulty_jackal",
+      "breakpoints": true
     }
   ]
 }
