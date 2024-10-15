@@ -24,4 +24,4 @@ export const imageSchema = z.object({
   })
 });
 
-export type CreateImageRequest = z.infer<typeof imageSchema>;
+export type CreateImageRequestBody = z.infer<typeof imageSchema>;

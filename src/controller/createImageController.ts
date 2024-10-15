@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import sharp from "sharp";
-import { CreateImageRequest } from "../schema/imageSchema";
+import { CreateImageRequestBody } from "../zod-schema/imageSchema";
 import config from "../utils/config";
 import { NextFunction, type Request, type Response } from "express";
 import fs from "fs/promises";
@@ -42,7 +42,7 @@ const saveAsWebp = async (base64Image: string): Promise<string> => {
 };
 
 const createImageController = async (req: Request, res: Response, next: NextFunction) => {
-  const { prompt, style } = req.body as CreateImageRequest["body"];
+  const { prompt, style } = req.body as CreateImageRequestBody["body"];
 
   const openaiRequestBody: OpenAI.Images.ImageGenerateParams = {
     prompt: prompt,
