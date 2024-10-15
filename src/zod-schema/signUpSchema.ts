@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const signUpSchema = z.object({
   body: z.object({
-    email: z.string().email(),
+    email: z.string().email({ message: "Invalid email address format" }),
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters long" })
@@ -20,4 +20,4 @@ export const signUpSchema = z.object({
   }),
 });
 
-export type SignUpRequest = z.infer<typeof signUpSchema>;
+export type SignUpRequestBody = z.infer<typeof signUpSchema>;
