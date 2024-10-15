@@ -1,4 +1,4 @@
-import {defineConfig} from "drizzle-kit";
+import { defineConfig } from "drizzle-kit";
 import config from "./src/utils/config";
 
 export default defineConfig({
@@ -12,5 +12,4 @@ export default defineConfig({
     password: config.MYSQL_PASSWORD,
     database: config.MYSQL_DATABASE,
   },
-  
 });
