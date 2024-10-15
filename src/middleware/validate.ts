@@ -1,5 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { z, ZodError } from "zod";
+import { StatusCodes } from "http-status-codes";
 
 /**
  * 사용자의 Request가 유효한 형식인지 검증하는 미들웨어.
@@ -20,9 +21,11 @@ export const validate =
         const errorMessages = error.errors.map((issue) => {
           return { message: `${issue.path.join(".")} is ${issue.message}` };
         });
-        res.status(400).json({ error: "Invalid data", details: errorMessages });
-      } else {
-        res.status(500).json({ error: "Internal server error" });
+        res.status(StatusCodes.BAD_REQUEST).json({ error: "Invalid data", details: errorMessages });
+      } 
+      // if not a ZodError
+      else {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Internal server error" });
       }
     }
   };
