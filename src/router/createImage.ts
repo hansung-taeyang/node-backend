@@ -1,5 +1,5 @@
 import { validate } from "../middleware/validate";
-import { imageSchema } from "../schema/imageSchema";
+import { imageSchema } from "../zod-schema/imageSchema";
 import { Router } from "express";
 import createImageController from "../controller/createImageController";
 
