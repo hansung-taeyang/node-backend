@@ -7,6 +7,7 @@ import fs from "fs/promises";
 import crypto from "node:crypto";
 import path from "path";
 import logger from "../utils/logger";
+import { StatusCodes } from "http-status-codes";
 
 const openai = new OpenAI({
   apiKey: config.OPEN_API_KEY
@@ -59,7 +60,7 @@ const createImageController = async (req: Request, res: Response, next: NextFunc
 
     const fileName = await saveAsWebp(rawImage.b64_json);
 
-    res.status(200).json({ url: `http://localhost:3000/images/${fileName}` });
+    res.status(StatusCodes.OK).json({ url: `http://localhost:3000/images/${fileName}` });
   } catch (error) {
     next(error);
   }
