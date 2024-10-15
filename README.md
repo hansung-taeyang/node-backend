@@ -12,13 +12,14 @@
 1. `dev` 브랜치로 체크아웃
 2. `npm install`로 의존성 패키지 설치
 3.  `npm run dev`로 로컬로 서버 구동
-4. DB(MySQL) 구동 필요시 `docker compose -f ../compose.db.yml up -d`으로 Docker에서 DB 구동
+4. DB(MySQL) 구동 필요시 `docker compose -f ../compose.db.yml up -d --build`으로 Docker에서 DB 구동
     - `localhost:3307`로 접근 가능
+    - 혹시 `capstonedb`가 없다는 오류가 발생한다면, Docker Desktop을 열어 Volumes에서 볼륨을 삭제하고, 4번 항목을 다시 실행해주세요.
 5. 개발 단계용 `.env` 파일은 말하면 제공함. API 키를 넣을 수도 있기 때문에 직접 커밋하지 않음.
 6. DB 스키마 생성 및 마이그레이션 시 `npm run db` 사용.
     -  4번 항목으로 DB를 먼저 가동시킨 후에 사용 가능합니다.
-    - `db:generate`: 스키마를 기반으로 SQL 파일 생성
-    - `db:migrate`: MySQL로 마이그레이션 실행
+    - `db:generate`: 스키마(테이블)를 기반으로 SQL 파일 생성
+    - `db:migrate`: MySQL로 마이그레이션 실행(생성된 SQL파일을 실제로 DB에서 돌려줘서 테이블을 생성합니다.)
     - 참고: [Drizzle 스키마 생성](https://orm.drizzle.team/docs/sql-schema-declaration) 및 [Drizzle 마이그레이션](https://orm.drizzle.team/docs/migrations)
 
 이외의 추가할 내용이 있다면 본 문서 수정 가능.
