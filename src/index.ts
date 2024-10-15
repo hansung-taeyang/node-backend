@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import { StatusCodes } from "http-status-codes";
 import env from "./utils/config";
 import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
@@ -15,7 +16,6 @@ const server = express();
 
 // NOTE - Middlewares
 server.use(express.urlencoded({ extended: true }));
-server.use(express.json());
 server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(express.static("public"));
@@ -34,7 +34,7 @@ server.get("/", (req: Request, res: Response) => {
 
 // All the routes that server won't accept will be redirected to 404
 server.all("*", (req: Request, res: Response) => {
-  res.status(404).send("Not found");
+  res.status(StatusCodes.NOT_FOUND).send("Not found");
 });
 
 server.use(errorHandler); // Always be the last middleware
