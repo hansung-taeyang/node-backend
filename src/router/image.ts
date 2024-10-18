@@ -1,13 +1,13 @@
 import { validate } from "../middleware/validate";
 import { imageSchema } from "../zod-schema/imageSchema";
 import { Router } from "express";
-import createImageController from "../controller/createImageController";
+import * as imageController from "../controller/createImageController";
 
 const router = Router();
 
 /**
  * @openapi
- * /v1/createImage:
+ * /v1/image:
  *  post:
  *    summary: Create an image from Open AI
  *    requestBody:
@@ -47,6 +47,6 @@ const router = Router();
  *                error:
  *                  type: string
  */
-router.post("/", validate(imageSchema), createImageController);
+router.post("/", validate(imageSchema), imageController.createImage);
 
 export default router;

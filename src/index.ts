@@ -6,7 +6,7 @@ import env from "./utils/config";
 import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
 
-import createImage from "./router/createImage";
+import image from "./router/image";
 import signUp from "./router/signUp";
 
 import sample from "./router/sample";
@@ -23,6 +23,7 @@ server.use(express.static("public"));
 //NOTE - Routes
 server.use("/v1/createImage", createImage);
 server.use("/v1/signUp", signUp);
+server.use("/v1/image", image);
 server.use("/sample", sample);
 server.use("/docs", swagger);
 
