@@ -4,7 +4,7 @@ export const users = mysqlTable(
     "users",
     {
         id: serial("id").primaryKey().autoincrement(),
-        emailId: varchar("emailId", { length: 256 }).notNull().unique(),
+        emailId: varchar("email_id", { length: 256 }).notNull().unique(),
         password: varchar("password", { length: 15 }).notNull(),
         phone: varchar("phone", { length: 11 }).notNull(),
     },
@@ -13,5 +13,5 @@ export const users = mysqlTable(
     }),
 );
 
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
+export type UserRecord = typeof users.$inferSelect;
+export type NewUserRecord = typeof users.$inferInsert;

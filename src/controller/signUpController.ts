@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { SignUpRequestBody } from "../zod-schema/signUpSchema";
 import { eq } from "drizzle-orm";
 import { db } from "../db/db";
-import { NewUser, users } from "../db/tables/users";
+import { NewUserRecord, users } from "../db/tables/users";
 import { StatusCodes } from "http-status-codes";
 
 const signUpController = async (
@@ -22,7 +22,7 @@ const signUpController = async (
       return res.status(StatusCodes.CONFLICT).json({ message: "User already exists" });
     }
 
-    const newUser: NewUser = {
+    const newUser: NewUserRecord = {
       emailId: email,
       password: password,
       phone: phone
