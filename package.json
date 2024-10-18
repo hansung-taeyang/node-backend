@@ -7,7 +7,7 @@
         "dev": "dotenvx run -- tsx watch src/index.ts",
         "build": "tsc --project tsconfig.json",
         "db:generate": "drizzle-kit generate",
-        "db:migrate": "tsx ./src/db/migrate.ts"
+        "db:migrate": "drizzle-kit migrate"
     },
     "keywords": [],
     "author": "",
