@@ -18,7 +18,7 @@ const signUpController = async (
     });
 
     // if user already exists, return 409 Conflict
-    if (result === undefined) {
+    if (result !== undefined) {
       return res.status(StatusCodes.CONFLICT).json({ message: "User already exists" });
     }
 
