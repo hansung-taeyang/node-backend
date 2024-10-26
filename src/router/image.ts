@@ -47,6 +47,6 @@ const router = Router();
  *                error:
  *                  type: string
  */
-router.post("/", validate(imageSchema), imageController.createImageController);
+router.post("/", validate(imageSchema), imageController.createImage);
 
 export default router;
