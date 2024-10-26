@@ -42,7 +42,7 @@ const saveAsWebp = async (base64Image: string): Promise<string> => {
   return fileName;
 };
 
-const createImageController = async (req: Request, res: Response, next: NextFunction) => {
+export const createImageController = async (req: Request, res: Response, next: NextFunction) => {
   const { prompt, style } = req.body as CreateImageRequestBody["body"];
 
   const openaiRequestBody: OpenAI.Images.ImageGenerateParams = {
@@ -65,5 +65,3 @@ const createImageController = async (req: Request, res: Response, next: NextFunc
     next(error);
   }
 };
-
-export default createImageController;

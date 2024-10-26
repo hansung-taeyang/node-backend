@@ -21,7 +21,6 @@ server.use(cookieParser());
 server.use(express.static("public"));
 
 //NOTE - Routes
-server.use("/v1/createImage", createImage);
 server.use("/v1/signUp", signUp);
 server.use("/v1/image", image);
 server.use("/sample", sample);
