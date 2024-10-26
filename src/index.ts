@@ -1,4 +1,4 @@
-import express, { type Request, type Response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
@@ -26,14 +26,8 @@ server.use("/v1/image", image);
 server.use("/sample", sample);
 server.use("/docs", swagger);
 
-server.get("/", (req: Request, res: Response) => {
-  res.send("Hello from back-node");
-  logger.info("This is info");
-  logger.warn("This is %s", "warning");
-});
-
 // All the routes that server won't accept will be redirected to 404
-server.all("*", (req: Request, res: Response) => {
+server.all("*", (req, res) => {
   res.status(StatusCodes.NOT_FOUND).send("Not found");
 });
 

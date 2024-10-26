@@ -1,7 +1,7 @@
 import { validate } from "../middleware/validate";
 import { imageSchema } from "../zod-schema/imageSchema";
 import { Router } from "express";
-import * as imageController from "../controller/createImageController";
+import * as imageController from "../controller/imageController";
 
 const router = Router();
 
