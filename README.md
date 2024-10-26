@@ -7,22 +7,91 @@
 
 ## 개발 시작 방법
 
-[메인 저장소](https://github.com/hansung-taeyang/precapstone-ppurio-service)를 참고하여 방금 막 클론해왔다고 가정합니다.
+1. [프로젝트 메인 저장소](https://github.com/hansung-taeyang/precapstone-ppurio-service)에 적힌대로 일단 클론한다.
+2. `cd node-backend`
+3. `git checkout dev && git pull origin dev` (**매우 중요함!!!!!**)
+    - 프로젝트 메인 저장소를 클론하면 `node-backend, front-flutter` 서브 모듈 저장소는 Detached HEAD인 상태가 됨.
+    - 이상한 곳에서 개발하면 안되니, `dev` 브랜치로 올바르게 Checkout 및 Pull 해 주어야함.
+4. `npm install`로 패키지 설치
+5. Docker 켜기
+6. `docker compose -f ../compose.db.yml up -d`로 `db`라는 이름의 MySQL 컨테이너 실행
+7. `npx drizzle-kit push`로 MySQL에 실제 테이블 생성
+8. `npm run dev`로 Node.js 백엔드 서버 구동
 
-1. `dev` 브랜치로 체크아웃
-2. `npm install`로 의존성 패키지 설치
-3.  `npm run dev`로 로컬로 서버 구동
-4. DB(MySQL) 구동 필요시 `docker compose -f ../compose.db.yml up -d --build`으로 Docker에서 DB 구동
-    - `localhost:3307`로 접근 가능
-    - 혹시 `capstonedb`가 없다는 오류가 발생한다면, Docker Desktop을 열어 Volumes에서 볼륨을 삭제하고, 4번 항목을 다시 실행해주세요.
-5. 개발 단계용 `.env` 파일은 말하면 제공함. API 키를 넣을 수도 있기 때문에 직접 커밋하지 않음.
-6. DB 스키마 생성 및 마이그레이션 시 `npm run db` 사용.
-    -  4번 항목으로 DB를 먼저 가동시킨 후에 사용 가능합니다.
-    - `db:generate`: 스키마(테이블)를 기반으로 SQL 파일 생성
-    - `db:migrate`: MySQL로 마이그레이션 실행(생성된 SQL파일을 실제로 DB에서 돌려줘서 테이블을 생성합니다.)
-    - 참고: [Drizzle 스키마 생성](https://orm.drizzle.team/docs/sql-schema-declaration) 및 [Drizzle 마이그레이션](https://orm.drizzle.team/docs/migrations)
+## 자주 묻는 질문 
 
-이외의 추가할 내용이 있다면 본 문서 수정 가능.
+VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정합니다.
+
+### Node.js 서버 돌릴려니깐 무슨 `import`를 찾을 수 없다고 나옴
+
+다른 팀원이 개발하면서 새로운 npm 패키지를 추가하고, 이를 커밋/푸시한 모양입니다. 변경사항을 `git pull` 했다면, `npm i` 혹은 `npm install`로 새로운 패키지들을 설치해줍시다.
+
+
+### DB 실행 어떻게 함?
+
+1. Docker를 켜둔다.
+2. 터미널을 연다. (VS Code에서는 단축키 `` ctrl+shift+` ``)
+3. `docker compose -f ../compose.db.yml up -d` 실행
+    - DB 컨테이너를 만드는데, `compose.db.yml` 스크립트를 참고하여 컨테이너를 생성하고, 컨테이너를 실행한다는 뜻
+    - 잘 실행되었다면, Docker Desktop의 `Containers`에 `ppurio-service/db`의 컨테이너가 생성되어 돌고 있다.
+4. `npx drizzle-kit push` 실행
+    - `src/db/tables/**.ts` 파일들(DB 테이블을 TypeScript로 정의한 것들)을 읽어서 Drizzle이 알아서 Docker에서 돌아가고 있는 MySQL 컨테이너에서 실행하여 MySQL에 실제 테이블을 생성한다는 뜻
+5. `npx drizzle-kit studio`로 크롬창에서 DB를 볼 수 있다.
+    - MySQL 클라이언트 따로 쓸거면 그렇게 해도 됨.
+    - 터미널에서 `docker exec -it db sh`로 `db` 컨테이너에 직접 쉘 열어서 `mysql -u root -p`로 실행해도 됨.
+
+### Node.js 로그에 MySQL 어쩌구저쩌구 오류 뜸
+
+일단 Docker를 켜놨는가?? 켜져있었는데 오류가 났다면, DB 컨테이너를 다시 만들어보자. 아래에 과정이 적혀있다.
+
+1. Docker Desktop을 열어서, `Containers`에서 `ppurio-service` 컨테이너를 (옵션: 정지하고) 제거한다.
+2. Docker Desktop에서 `Volumes`로 들어가서 `db_data` 볼륨을 제거한다.
+3. `node-backend` 폴더 (현재 이 저장소)에서 터미널을 연다.
+4. `docker compose -f ../compose.db.yml up -d`를 실행
+5. `npx drizzle-kit push`를 실행
+6. `npm run dev`로 Node.js 백엔드 다시 켜서 잘 되는지 확인.
+
+---
+
+참고: Docker 컨테이너, 볼륨 지우는건 아래의 명령으로도 가능함. 아래에 있는 경로명은 당연히 내 것과 다르니 참고.
+
+작업 폴더는 `node-backend`를 기준으로 설명함.
+
+```console
+$ docker ps 
+CONTAINER ID   IMAGE       COMMAND                   CREATED          STATUS          PORTS                               NAMES
+ee446243a701   mysql:lts   "docker-entrypoint.s…"   16 minutes ago   Up 16 minutes   33060/tcp, 0.0.0.0:3307->3306/tcp   db
+
+$ docker stop db
+db
+
+$ docker rm db
+db
+
+$ docker volume rm db_data
+db_data
+
+$ docker compose -f ../compose.db.yml up -d
+[+] Running 2/2
+ ✔ Volume "db_data"  Created
+ ✔ Container db      Started
+```
+
+각각의 명령은 다음을 의미함.
+
+1. 실행 중인 DB 컨테이너 이름이 `db`가 맞는지 확인.
+2. `db` 컨테이너 정지
+3. `db` 컨테이너 제거
+4. `db_data` 볼륨 제거
+5. `db` 컨테이너 재시작
+
+### Node.js 백엔드 실행이 안됨
+
+Node.js 로그에 포트 어쩌구저쩌구(주로 포트 번호가 이미 사용 중인 경우)라고 뜰 때가 있다.
+
+`.env`파일에 `EXPRESS_PORT=3000`에서 포트번호를 임의로 바꿔도 괜찮으니 적당한 포트로 바꾼다. 그리고 `npm run dev`로 다시 서버를 켜본다.
+
+그래도 포트 번호가 사용 중이니 뭐니 그러면 `netstat -ano` 커맨드로 사용 중인 포트 번호의 PID를 알아낼 수 있으니 그 프로세스를 죽이던지, 컴퓨터를 재부팅해보자.
 
 ## 메모
 
