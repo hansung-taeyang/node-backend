@@ -8,6 +8,7 @@ import errorHandler from "./middleware/errorHandler";
 
 import image from "./router/image";
 import signUp from "./router/signUp";
+import signIn from "./router/signIn";
 
 import sample from "./router/sample";
 import swagger from "./router/swagger";
@@ -21,6 +22,7 @@ server.use(cookieParser());
 server.use(express.static("public"));
 
 //NOTE - Routes
+server.use("/v1/signIn", signIn);
 server.use("/v1/signUp", signUp);
 server.use("/v1/image", image);
 server.use("/sample", sample);
