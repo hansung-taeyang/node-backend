@@ -2,6 +2,7 @@ import { validate } from "../middleware/validate";
 import { imageSchema } from "../zod-schema/imageSchema";
 import { Router } from "express";
 import * as imageController from "../controller/imageController";
+import { checkLogin } from "../middleware/checkLogin";
 
 const router = Router();
 
@@ -47,6 +48,6 @@ const router = Router();
  *                error:
  *                  type: string
  */
-router.post("/", validate(imageSchema), imageController.createImage);
+router.post("/", validate(imageSchema), checkLogin, imageController.createImage);
 
 export default router;
