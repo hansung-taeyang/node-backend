@@ -5,6 +5,7 @@ import { db } from "../db/db";
 import { users } from "../db/tables/users";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
+import config from "../utils/config";
 
 const signInController = async (
   req: Request,
@@ -36,8 +37,8 @@ const signInController = async (
     // 4. JWT 생성 (email을 유일한 식별자로 사용)
     const token = jwt.sign(
       { email: user.emailId }, // 토큰에 포함할 정보
-      process.env.JWT_SECRET!, // 비밀 키
-      { expiresIn: process.env.JWT_EXPIRES_IN }, // 만료 시간
+      config.JWT_SECRET, // 비밀 키
+      { expiresIn: config.JWT_EXPIRES_IN }, // 만료 시간
     );
 
     // 5. 로그인 성공 응답 (토큰 반환)
