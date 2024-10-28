@@ -15,6 +15,12 @@ declare global {
       // Add more environment variables here...
     }
   }
+
+  namespace Express {
+    interface Request {
+      email: string;
+    }
+  }
 }
 
 export {};
