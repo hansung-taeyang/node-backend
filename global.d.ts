@@ -10,6 +10,8 @@ declare global {
       MYSQL_DATABASE: string;
       TEST: string;
       OPEN_API_KEY: string;
+      JWT_SECRET: string;
+      JWT_EXPIRES_IN: string;
       // Add more environment variables here...
     }
   }
