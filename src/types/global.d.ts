@@ -12,6 +12,7 @@ declare global {
       OPEN_API_KEY: string;
       JWT_SECRET: string;
       JWT_EXPIRES_IN: string;
+      PPURIO_AUTH_KEY_BASE64: string;
       // Add more environment variables here...
     }
   }
