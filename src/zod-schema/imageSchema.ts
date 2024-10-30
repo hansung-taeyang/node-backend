@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+// 프론트에서 넘겨줄 필드 중 하나: 생성될 이미지의 스타일
+const imageEnum = z.enum([
+  "minimalist",
+  "flat design",
+  "watercolor",
+  "vintage",
+  "abstract",
+  "line art"
+]);
+
+export type ImageStyle = z.infer<typeof imageEnum>
+
 /**
  * @openapi
  * components:
@@ -12,7 +24,7 @@ import { z } from "zod";
  *           description: The text prompt to generate the image.
  *         style:
  *           type: string
- *           description: The style of the image to be generated. Can be either "vivid" or "natural".
+ *           description: The style of the image to be generated.
  *       example:
  *         prompt: Cute norwegian forest cat
  *         style: natural
@@ -20,7 +32,7 @@ import { z } from "zod";
 export const imageSchema = z.object({
   body: z.object({
     prompt: z.string().min(1).max(4000),
-    style: z.literal("vivid").or(z.literal("natural"))
+    style: imageEnum
   })
 });
 
