@@ -44,7 +44,7 @@ VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정�
 
 일단 Docker를 켜놨는가?? 켜져있었는데 오류가 났다면, DB 컨테이너를 다시 만들어보자. 아래에 과정이 적혀있다.
 
-1. Docker Desktop을 열어서, `Containers`에서 `ppurio-service` 컨테이너를 (옵션: 정지하고) 제거한다.
+1. Docker Desktop을 열어서, `Containers`에서 `db` 컨테이너를 제거한다. 못 지우면 일단 정지시키고 지워본다.
 2. Docker Desktop에서 `Volumes`로 들어가서 `db_data` 볼륨을 제거한다.
 3. `node-backend` 폴더 (현재 이 저장소)에서 터미널을 연다.
 4. `docker compose -f ../compose.db.yml up -d`를 실행
