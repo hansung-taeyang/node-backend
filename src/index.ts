@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { StatusCodes } from "http-status-codes";
@@ -16,6 +17,7 @@ import swagger from "./router/swagger";
 const server = express();
 
 // NOTE - Middlewares
+server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(cookieParser());
