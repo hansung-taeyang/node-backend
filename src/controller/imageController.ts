@@ -23,7 +23,7 @@ const generateImagePrompt = async (userPrompt: string, userStyle: ImageStyle) =>
     messages: [
       {
         role: "system",
-        content: `Your job is to write a prompt for DALL·E 3 based on the user's input. The user wants to generate a 2D illustration based on your prompt. The illustration will be used for the book's advertisement, which will be sent as an attachment of the book's advertisement message, or an email. The user will provide a genre and a plot of the book. Make sure the generated image doesn't include any texts, letters, or characters. The user wants ${userStyle} Style for the illustration.`
+        content: `Your job is to write a prompt for DALL·E 3 based on the user's input. The user wants to generate a 2D illustration based on your prompt. The illustration will be used for the book's advertisement, which will be sent as an attachment of the book's advertisement message, or an email. The user will provide a genre and a plot of the book. Make sure the generated image doesn't include any texts, letters, or characters. The user wants ${userStyle} Style for the illustration. Please only include a prompt for the image in your response.`
       },
       {
         role: "user",
