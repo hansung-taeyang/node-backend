@@ -102,7 +102,7 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
 
     // 모두 잘 됐으면 프론트에 200 코드와 함께 저장된 이미지의 서버 URL을 보냄
     res.status(StatusCodes.OK).json({
-      url: `http://localhost:3000/images/${fileName}`,
+      url: `/images/${fileName}`,
       revised_prompt: rawImage.revised_prompt // 개발용 확인 필드
     });
   } catch (error) {
