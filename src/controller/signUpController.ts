@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { SignUpRequestBody } from "../zod-schema/signUpSchema";
 import { eq } from "drizzle-orm";
 import { db } from "../db/db";
-import { NewUserRecord, users } from "../db/tables/users";
+import { users } from "../db/tables/users";
 import { StatusCodes } from "http-status-codes";
+
+type NewUserRecord = typeof users.$inferInsert;
 
 const signUpController = async (
   req: Request,
