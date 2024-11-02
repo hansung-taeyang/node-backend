@@ -10,6 +10,8 @@ import { StatusCodes } from "http-status-codes";
 
 import { openai, type ImageParameter } from "../utils/openai";
 import { images } from "../db/tables/images";
+import { eq } from "drizzle-orm";
+import { users } from "../db/tables/users";
 
 /**
  * Generate an image prompt for DALL·E 3, based on users input
@@ -49,18 +51,18 @@ const generateFileNameFromBuffer = (buffer: Buffer): string => {
  * @param base64Image base64 image data from OpenAI
  * @returns name of the saved webp image
  */
-const saveAsWebp = async (base64Image: string): Promise<string> => {
+const saveAsJpeg = async (base64Image: string): Promise<string> => {
   const imageBuffer = await sharp(Buffer.from(base64Image, "base64"))
-    .webp({ quality: 50 })
+    .jpeg({
+      quality: 50
+    })
     .toBuffer();
 
-  const fileName = `${generateFileNameFromBuffer(imageBuffer)}.webp`;
+  const fileName = `${generateFileNameFromBuffer(imageBuffer)}.jpeg`;
   const IMAGE_BASE_PATH = path.join(__dirname, "../..", "public", "images");
   const fileUrl = path.join(IMAGE_BASE_PATH, fileName);
 
   await fs.writeFile(fileUrl, imageBuffer);
-  await db.insert(images).values({ imageId: fileName });
-  
   logger.info(`Image created at ${fileUrl}`);
 
   return fileName;
@@ -69,9 +71,9 @@ const saveAsWebp = async (base64Image: string): Promise<string> => {
 export const createImage = async (req: Request, res: Response, next: NextFunction) => {
   const { prompt, style } = req.body as CreateImageRequestBody["body"];
 
-    /*
-    "장르: 장편소설, 추리/미스터리. 책 소개: 외딴 산장에 여덟 명의 남녀가 모인 가운데 한밤중 은행 강도범이 침입해 인질극을 벌인다. 인질들은 수차례 탈출을 시도하지만 번번이 실패하고, 강도범과 인질들 사이에 숨 막히는 줄다리기가 펼쳐지는 가운데 인질 한 명이 살해된 체 발견된다."
-    */
+  /*
+  "장르: 장편소설, 추리/미스터리. 책 소개: 외딴 산장에 여덟 명의 남녀가 모인 가운데 한밤중 은행 강도범이 침입해 인질극을 벌인다. 인질들은 수차례 탈출을 시도하지만 번번이 실패하고, 강도범과 인질들 사이에 숨 막히는 줄다리기가 펼쳐지는 가운데 인질 한 명이 살해된 체 발견된다."
+  */
 
   // 1단계: GPT에게 유저의 프롬프트를 전달해 DALLE에 넘길 프롬프트를 만들어달라고 한다.
   const generatedPrompt = await generateImagePrompt(prompt, style)
@@ -98,13 +100,45 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
     }
 
     // 이미지 webp로 저장
-    const fileName = await saveAsWebp(rawImage.b64_json);
+    const fileName = await saveAsJpeg(rawImage.b64_json);
+
+    await db.insert(images)
+      .values({
+        imageId: fileName,
+        userEmailId: req.emailId
+      });
 
     // 모두 잘 됐으면 프론트에 200 코드와 함께 저장된 이미지의 서버 URL을 보냄
     res.status(StatusCodes.OK).json({
       url: `/images/${fileName}`,
       revised_prompt: rawImage.revised_prompt // 개발용 확인 필드
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllImage = async (req: Request, res: Response, next: NextFunction) => {
+  const emailId = req.emailId;
+  try {
+    // emailId 를 가지는 유저 레코드와 연관된 이미지들(일대다 관계) 중에서
+    // 이미지들을 {생성일자, 파일이름} 필드만 뽑아서 리턴함.
+    const result = await db.query.users.findFirst({
+      where: eq(users.emailId, emailId),
+      with: {
+        createdImages: {
+          columns: {
+            createdAt: true,
+            imageId: true,
+            id: false,
+            userEmailId: false
+          },
+          orderBy: (createdImages, { desc }) => [ desc(createdImages.createdAt) ], 
+        }
+      },
+    });
+    const userImages = result?.createdImages;
+    return res.status(StatusCodes.OK).json([...userImages!]);
   } catch (error) {
     next(error);
   }
