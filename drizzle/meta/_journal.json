@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1730558133952,
+      "tag": "0000_lying_tyrannus",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1730558144235,
+      "tag": "0001_seed-users",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1730559058428,
+      "tag": "0002_seed-images",
+      "breakpoints": true
+    }
+  ]
+}
