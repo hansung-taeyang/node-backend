@@ -1,4 +1,6 @@
+import { relations } from "drizzle-orm";
 import { mysqlTable, serial, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
+import { images } from "./images";
 
 export const users = mysqlTable(
     "users",
@@ -13,5 +15,6 @@ export const users = mysqlTable(
     }),
 );
 
-export type UserRecord = typeof users.$inferSelect;
-export type NewUserRecord = typeof users.$inferInsert;
+export const userImageRelations = relations(users, ({ many }) => ({
+  createdImages: many(images)
+}));

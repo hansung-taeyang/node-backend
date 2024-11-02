@@ -1,7 +1,8 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2";
 import config from "../utils/config";
-import { users } from "./tables/users";
+import * as users from "./tables/users";
+import * as images from "./tables/images";
 
 export const conn = mysql.createConnection({
     host: config.MYSQL_HOST,
@@ -13,6 +14,6 @@ export const conn = mysql.createConnection({
 });
 
 export const db = drizzle(conn, { 
-    schema: { users }, // add tables here
+    schema: { ...users, ...images }, // add tables here
     mode: "default"
 });

@@ -1,5 +1,6 @@
 import { mysqlTable, serial, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { users } from "./users";
+import { relations } from "drizzle-orm";
 
 export const images = mysqlTable(
     "images",
@@ -11,5 +12,9 @@ export const images = mysqlTable(
     },
 );
 
-export type ImageRecord = typeof images.$inferSelect;
-export type NewImageRecord = typeof images.$inferInsert;
+export const imageUserRelation = relations(images, ({ one }) => ({
+  createdUser: one(users, {
+    fields: [images.userEmailId],
+    references: [users.emailId]
+  })
+}));
