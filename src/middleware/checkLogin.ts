@@ -23,7 +23,7 @@ export const checkLogin = async (req: Request, res: Response, next: NextFunction
             where: eq(users.emailId, email),
         });
 
-        req.email = user!.emailId;
+        req.emailId = user!.emailId;
         next();
     });
 };
