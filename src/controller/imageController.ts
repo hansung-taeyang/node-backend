@@ -59,7 +59,7 @@ const saveAsJpeg = async (base64Image: string): Promise<string> => {
     .toBuffer();
 
   const fileName = `${generateFileNameFromBuffer(imageBuffer)}.jpeg`;
-  const IMAGE_BASE_PATH = path.join(__dirname, "../..", "public", "images");
+  const IMAGE_BASE_PATH = path.join(process.cwd(), "public", "images");
   const fileUrl = path.join(IMAGE_BASE_PATH, fileName);
 
   await fs.writeFile(fileUrl, imageBuffer);
@@ -79,8 +79,7 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
   const generatedPrompt = await generateImagePrompt(prompt, style)
     .then(prompt => {
       // 생성된 프롬프트 확인
-      logger.info("Prompt created!");
-      logger.info(prompt);
+      logger.info("Prompt created!: %s", prompt);
       return prompt;
     });
 
@@ -96,22 +95,23 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
     const { data: [rawImage] } = await openai.images.generate(openaiRequestBody);
 
     if (rawImage === undefined || rawImage.b64_json === undefined) {
-      throw new Error("No image data found");
+      throw new Error("No image data found from OpenAI");
     }
 
     // 이미지 webp로 저장
     const fileName = await saveAsJpeg(rawImage.b64_json);
 
-    await db.insert(images)
-      .values({
-        imageId: fileName,
-        userEmailId: req.emailId
-      });
+    if (req.emailId !== undefined || req.emailId !== null) {
+      await db.insert(images)
+        .values({
+          imageId: fileName,
+          userEmailId: req.emailId
+        });
+    }
 
     // 모두 잘 됐으면 프론트에 200 코드와 함께 저장된 이미지의 서버 URL을 보냄
     res.status(StatusCodes.OK).json({
-      url: `/images/${fileName}`,
-      revised_prompt: rawImage.revised_prompt // 개발용 확인 필드
+      url: `/images/${fileName}`
     });
   } catch (error) {
     next(error);
@@ -133,7 +133,7 @@ export const getAllImage = async (req: Request, res: Response, next: NextFunctio
             id: false,
             userEmailId: false
           },
-          orderBy: (createdImages, { desc }) => [ desc(createdImages.createdAt) ], 
+          orderBy: (createdImages, { desc }) => [desc(createdImages.createdAt)],
         }
       },
     });
