@@ -13,6 +13,8 @@ declare global {
       JWT_SECRET: string;
       JWT_EXPIRES_IN: string;
       PPURIO_AUTH_KEY_BASE64: string;
+      PPURIO_ACCOUNT_ID: string;
+      PPURIO_SENDER_NUMBER: string;
       // Add more environment variables here...
     }
   }
