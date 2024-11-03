@@ -14,11 +14,6 @@ export default function (
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
 
-  const error = {
-    message: err.message,
-    // stack: err.stack,
-  }
-
-  logger.error(error);
-  res.json(error);
+  logger.error(err.message);
+  res.json({ message: err.message });
 };
