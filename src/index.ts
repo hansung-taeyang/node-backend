@@ -13,6 +13,7 @@ import signIn from "./router/signIn";
 
 import sample from "./router/sample";
 import swagger from "./router/swagger";
+import sendingMessage from "./router/sendingMessage";
 
 const server = express();
 
@@ -27,6 +28,7 @@ server.use(express.static("public"));
 server.use("/v1/signIn", signIn);
 server.use("/v1/signUp", signUp);
 server.use("/v1/image", image);
+server.use("/v1/sendingMessage", sendingMessage);
 server.use("/sample", sample);
 server.use("/docs", swagger);
 
