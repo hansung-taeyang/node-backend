@@ -1,6 +1,6 @@
 {
-  "id": "5fcfcfbf-086b-4985-854d-a92bc0d5c31a",
-  "prevId": "908c5bc8-9d1f-4177-926f-0a095bc560b8",
+  "id": "6c00987a-cd47-43b9-9b53-5b67d86c05d0",
+  "prevId": "dd31eafb-a91e-47f3-923e-024a7b5b8c8d",
   "version": "5",
   "dialect": "mysql",
   "tables": {
@@ -69,51 +69,6 @@
           ]
         }
       }
-    },
-    "students": {
-      "name": "students",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "year": {
-          "name": "year",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "name_idx": {
-          "name": "name_idx",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "students_id": {
-          "name": "students_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
     },
     "users": {
       "name": "users",

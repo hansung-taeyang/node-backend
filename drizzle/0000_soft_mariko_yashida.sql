@@ -7,14 +7,6 @@ CREATE TABLE `images` (
 	CONSTRAINT `images_image_id_unique` UNIQUE(`image_id`)
 );
 --> statement-breakpoint
-CREATE TABLE `students` (
-	`id` serial AUTO_INCREMENT NOT NULL,
-	`name` varchar(256),
-	`year` int,
-	CONSTRAINT `students_id` PRIMARY KEY(`id`),
-	CONSTRAINT `name_idx` UNIQUE(`name`)
-);
---> statement-breakpoint
 CREATE TABLE `users` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`email_id` varchar(256) NOT NULL,
