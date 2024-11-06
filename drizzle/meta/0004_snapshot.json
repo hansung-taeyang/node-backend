@@ -1,6 +1,6 @@
 {
-  "id": "dd31eafb-a91e-47f3-923e-024a7b5b8c8d",
-  "prevId": "af484927-d039-4f0a-af43-21a0ce71ed33",
+  "id": "f08f5ba0-f251-44df-b73b-dd8e1c48d91b",
+  "prevId": "add4bfa9-6a85-41a6-a572-87b8e5e65130",
   "version": "5",
   "dialect": "mysql",
   "tables": {
@@ -21,8 +21,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "create_at": {
-          "name": "create_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
@@ -69,6 +69,77 @@
           ]
         }
       }
+    },
+    "messages": {
+      "name": "messages",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "message_json": {
+          "name": "message_json",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "user_email_id": {
+          "name": "user_email_id",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_id": {
+          "name": "image_id",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "messages_user_email_id_users_email_id_fk": {
+          "name": "messages_user_email_id_users_email_id_fk",
+          "tableFrom": "messages",
+          "columnsFrom": [
+            "user_email_id"
+          ],
+          "tableTo": "users",
+          "columnsTo": [
+            "email_id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "messages_image_id_images_image_id_fk": {
+          "name": "messages_image_id_images_image_id_fk",
+          "tableFrom": "messages",
+          "columnsFrom": [
+            "image_id"
+          ],
+          "tableTo": "images",
+          "columnsTo": [
+            "image_id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "messages_id": {
+          "name": "messages_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
     },
     "users": {
       "name": "users",

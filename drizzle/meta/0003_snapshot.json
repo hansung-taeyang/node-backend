@@ -1,8 +1,8 @@
 {
+  "id": "add4bfa9-6a85-41a6-a572-87b8e5e65130",
+  "prevId": "a03f5b8e-70f5-4e40-be43-1332ffb4d02c",
   "version": "5",
   "dialect": "mysql",
-  "id": "31207bcb-b20c-4d2e-b763-596231adde50",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "images": {
       "name": "images",
@@ -42,15 +42,15 @@
         "images_user_email_id_users_email_id_fk": {
           "name": "images_user_email_id_users_email_id_fk",
           "tableFrom": "images",
-          "tableTo": "users",
           "columnsFrom": [
             "user_email_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "email_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -107,28 +107,28 @@
         "messages_user_email_id_users_email_id_fk": {
           "name": "messages_user_email_id_users_email_id_fk",
           "tableFrom": "messages",
-          "tableTo": "users",
           "columnsFrom": [
             "user_email_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "email_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "messages_image_id_images_image_id_fk": {
           "name": "messages_image_id_images_image_id_fk",
           "tableFrom": "messages",
-          "tableTo": "images",
           "columnsFrom": [
             "image_id"
           ],
+          "tableTo": "images",
           "columnsTo": [
             "image_id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -202,9 +202,9 @@
     }
   },
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   },
   "internal": {
     "tables": {},
