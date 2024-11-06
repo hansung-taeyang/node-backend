@@ -12,7 +12,7 @@ import signUp from "./router/signUp";
 import signIn from "./router/signIn";
 
 import swagger from "./router/swagger";
-import sendMessage from "./router/sendMessage";
+import message from "./router/message";
 
 const server = express();
 
@@ -27,7 +27,7 @@ server.use(express.static("public"));
 server.use("/v1/signIn", signIn);
 server.use("/v1/signUp", signUp);
 server.use("/v1/image", image);
-server.use("/v1/sendMessage", sendMessage);
+server.use("/v1/message", message);
 server.use("/docs", swagger);
 
 // All the routes that server won't accept will be redirected to 404

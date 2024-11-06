@@ -6,6 +6,9 @@ import logger from "../utils/logger";
 import { StatusCodes } from "http-status-codes";
 import config from "../utils/config";
 import { MessageRequestBody } from "../zod-schema/messageSchema";
+import { db } from "../db/db";
+import { eq } from "drizzle-orm";
+import { messages, messages } from "../db/tables/messages";
 
 interface FileData {
   name: string;
@@ -144,6 +147,18 @@ export class SendMessageController {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR);
       next(err);
     }
+  }
+
+  public getMessages = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.emailId === null || req.emailId === undefined) {
+      return;
+    }
+
+    const result = await db.query.messages.findMany({
+      where: eq(messages.userEmailId, req.emailId),
+    });
+
+    logger.info("Messages: %o", result);
   }
 }
 

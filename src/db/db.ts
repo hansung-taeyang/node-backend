@@ -3,6 +3,7 @@ import mysql from "mysql2";
 import config from "../utils/config";
 import * as users from "./tables/users";
 import * as images from "./tables/images";
+import * as messages from "./tables/messages";
 
 export const conn = mysql.createConnection({
     host: config.MYSQL_HOST,
@@ -14,6 +15,6 @@ export const conn = mysql.createConnection({
 });
 
 export const db = drizzle(conn, { 
-    schema: { ...users, ...images }, // add tables here
+    schema: { ...users, ...images, ...messages }, // add tables here
     mode: "default"
 });
