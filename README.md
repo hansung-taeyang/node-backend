@@ -23,10 +23,20 @@
 
 VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정합니다.
 
+### DB 마이그레이션만 다시 하는 법
+
+1. [DB 컨테이너 다시 만들거나](#nodejs-로그에-mysql-어쩌구저쩌구-오류-뜸)
+2. `docker exec -it db mysql -u root -p`로 MySQL 컨테이너에 직접 접속한다.
+    - `root` 로 비밀번호를 입력한다.
+    - `drop database capstonedb;` 하고 `create database capstonedb;`로 데이터베이스를 다시 만든다.
+    - `npx drizzle-kit migrate`로 DB 마이그레이션 다시 해서 샘플 데이터를 다시 넣으면 된다.
+    - 뭔 소리인지 모르겠으면 [DB 컨테이너 다시 만들면 됨.](#nodejs-로그에-mysql-어쩌구저쩌구-오류-뜸)
+
 ### Node.js 서버 돌릴려니깐 무슨 `import`를 찾을 수 없다고 나옴
 
-다른 팀원이 개발하면서 새로운 npm 패키지를 추가하고, 이를 커밋/푸시한 모양입니다. 변경사항을 `git pull` 했다면, `npm i` 혹은 `npm install`로 새로운 패키지들을 설치해줍시다.
+다른 팀원이 개발하면서 새로운 npm 패키지를 추가하고, 이를 커밋/푸시한 모양입니다.
 
+변경사항을 `git pull` 했다면, `npm i` 혹은 `npm install`로 새로운 패키지들을 설치해줍시다.
 
 ### DB 실행 어떻게 함?
 
