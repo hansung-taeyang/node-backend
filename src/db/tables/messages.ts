@@ -5,11 +5,11 @@ import { relations } from "drizzle-orm";
 
 export const messages = mysqlTable("messages", {
   id: serial("id").primaryKey().autoincrement(),
-  messageJson: json("message_json"),
-  userEmailId: varchar("user_email_id", { length: 256 }).references(
+  messageJson: json("message_json").notNull(),
+  userEmailId: varchar("user_email_id", { length: 256 }).notNull().references(
     () => users.emailId,
   ),
-  imageId: varchar("image_id", { length: 256 }).references(
+  imageId: varchar("image_id", { length: 256 }).notNull().references(
     () => images.imageId,
   ),
 });

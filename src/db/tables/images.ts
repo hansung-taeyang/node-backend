@@ -8,7 +8,7 @@ export const images = mysqlTable(
         id: serial("id").primaryKey().autoincrement(),
         imageId: varchar("image_id", { length: 256 }).notNull().unique(),
         createdAt: timestamp("created_at").defaultNow(),
-        userEmailId: varchar("user_email_id", { length: 256 }).references(() => users.emailId)
+        userEmailId: varchar("user_email_id", { length: 256 }).notNull().references(() => users.emailId)
     },
 );
 
