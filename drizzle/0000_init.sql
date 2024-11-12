@@ -2,16 +2,16 @@ CREATE TABLE `images` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`image_id` varchar(256) NOT NULL,
 	`created_at` timestamp DEFAULT (now()),
-	`user_email_id` varchar(256),
+	`user_email_id` varchar(256) NOT NULL,
 	CONSTRAINT `images_id` PRIMARY KEY(`id`),
 	CONSTRAINT `images_image_id_unique` UNIQUE(`image_id`)
 );
 --> statement-breakpoint
 CREATE TABLE `messages` (
 	`id` serial AUTO_INCREMENT NOT NULL,
-	`message_json` json,
-	`user_email_id` varchar(256),
-	`image_id` varchar(256),
+	`message_json` json NOT NULL,
+	`user_email_id` varchar(256) NOT NULL,
+	`image_id` varchar(256) NOT NULL,
 	CONSTRAINT `messages_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint

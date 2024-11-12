@@ -1,6 +1,6 @@
 {
-  "id": "f08f5ba0-f251-44df-b73b-dd8e1c48d91b",
-  "prevId": "add4bfa9-6a85-41a6-a572-87b8e5e65130",
+  "id": "ced46d5f-bd85-43f6-9278-d98114c3de1f",
+  "prevId": "2a789eb9-7e32-4d83-9c3a-01931dde514d",
   "version": "5",
   "dialect": "mysql",
   "tables": {
@@ -33,7 +33,7 @@
           "name": "user_email_id",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
@@ -84,21 +84,21 @@
           "name": "message_json",
           "type": "json",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "user_email_id": {
           "name": "user_email_id",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "image_id": {
           "name": "image_id",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },

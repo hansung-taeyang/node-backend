@@ -1,6 +1,6 @@
 {
-  "id": "93674195-958c-4f6e-8509-9744059c3615",
-  "prevId": "14a08ab3-411d-4fe9-b2f5-786c2174aacd",
+  "id": "14a08ab3-411d-4fe9-b2f5-786c2174aacd",
+  "prevId": "84b823c1-4b24-43da-a2f4-6f7090fc2e29",
   "version": "5",
   "dialect": "mysql",
   "tables": {
