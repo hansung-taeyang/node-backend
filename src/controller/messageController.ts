@@ -8,7 +8,7 @@ import config from "../utils/config";
 import { MessageRequestBody } from "../zod-schema/messageSchema";
 import { db } from "../db/db";
 import { eq } from "drizzle-orm";
-import { messages, messages } from "../db/tables/messages";
+import { messages } from "../db/tables/messages";
 
 interface FileData {
   name: string;
@@ -36,7 +36,7 @@ interface Auth {
   expired: string;
 }
 
-export class SendMessageController {
+export class MessageController {
   private API_URL = "https://message.ppurio.com/v1/message";
   private authData: string | null = null;
   private authTokenExpireTime: number | null = null;
@@ -65,14 +65,14 @@ export class SendMessageController {
           throw new Error("인증 토큰을 가져올 수 없습니다.");
         }
         this.authData = authData.token;
-        this.authTokenExpireTime = now + 3600000; 
+        this.authTokenExpireTime = now + 3600000;
       } catch (error) {
         throw new Error(`Failed to initialize ppurio auth: ${error}`);
       }
     }
   }
 
-  private loadImageToBase64 = async (imageUrl: string): Promise<FileData[]> =>{
+  private loadImageToBase64 = async (imageUrl: string): Promise<FileData[]> => {
     const PROJECT_ROOT = process.cwd();
     const imagePath = path.join(PROJECT_ROOT, "public", imageUrl);
     try {
@@ -80,13 +80,13 @@ export class SendMessageController {
     } catch {
       throw new Error(`입력 파일이 존재하지 않습니다: ${imagePath}`);
     }
-  
+
     const { data, info } = await sharp(imagePath)
       .resize({ width: 400, height: 400 })
       .toBuffer({ resolveWithObject: true });
-  
+
     const base64Data = data.toString("base64");
-  
+
     return [
       {
         name: path.basename(imagePath),
@@ -95,7 +95,7 @@ export class SendMessageController {
       },
     ];
   }
-  
+
   public sendMessage = async (req: Request, res: Response, next: NextFunction) => {
     try {
       await this.initializeAuth();
@@ -159,7 +159,27 @@ export class SendMessageController {
     });
 
     logger.info("Messages: %o", result);
+
+    res.status(StatusCodes.OK).json({
+      messages: result.map(({ imageId, messageJson }) => ({
+        image: `/images/${imageId}`,
+        messageJson: messageJson,
+      }))
+    });
+  }
+
+  public getMessagesWithoutLogin = async (req: Request, res: Response, next: NextFunction) => { 
+    const result = await db.query.messages.findMany({
+      where: eq(messages.userEmailId, "foo@bar.com")
+    });
+
+    res.status(StatusCodes.OK).json({
+      messages: result.map(({ imageId, messageJson }) => ({
+        image: `/images/${imageId}`,
+        messageJson: messageJson,
+      }))
+    });
   }
 }
 
-export default SendMessageController;
+export default MessageController;
