@@ -6,6 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import env from "./utils/config";
 import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
+import httpLogger from "./middleware/httpLogger";
 
 import image from "./router/image";
 import signUp from "./router/signUp";
@@ -17,6 +18,7 @@ import message from "./router/message";
 const server = express();
 
 // NOTE - Middlewares
+server.use(httpLogger);
 server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(bodyParser.json());
