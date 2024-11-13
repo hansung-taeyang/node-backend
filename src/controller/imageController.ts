@@ -101,7 +101,7 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
     // 이미지 webp로 저장
     const fileName = await saveAsJpeg(rawImage.b64_json);
 
-    if (req.emailId !== undefined || req.emailId !== null) {
+    if (req.emailId !== undefined && req.emailId !== null) {
       await db.insert(images)
         .values({
           imageId: fileName,
