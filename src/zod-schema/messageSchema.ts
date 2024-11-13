@@ -10,7 +10,6 @@ export const messageSchema = z.object({
       name: z.any().optional(),
       changeWord: z.any().optional()
     })),
-    subject: z.string(),
     imageUrl: z.string()
   })
 });

@@ -1,7 +1,6 @@
 import { json, mysqlTable, serial, varchar } from "drizzle-orm/mysql-core";
 import { images } from "./images";
 import { users } from "./users";
-import { relations } from "drizzle-orm";
 
 export const messages = mysqlTable("messages", {
   id: serial("id").primaryKey().autoincrement(),

@@ -100,7 +100,7 @@ export class MessageController {
     try {
       await this.initializeAuth();
 
-      const { content, targetCount, targets, subject, imageUrl } = req.body as MessageRequestBody["body"];
+      const { content, targetCount, targets, imageUrl } = req.body as MessageRequestBody["body"];
 
       const fileDataArray = await this.loadImageToBase64(imageUrl);
 
@@ -114,30 +114,43 @@ export class MessageController {
         targetCount,
         targets,
         refKey: "swpc-team-sun",
-        subject,
         files: fileDataArray,
       };
 
+      
       const headers = {
         Authorization: `Bearer ${this.authData}`,
         "Content-Type": "application/json",
       };
-
+      
       const response = await fetch(this.API_URL, {
         method: "POST",
         headers,
         body: JSON.stringify(data),
       });
-
+      
       if (!response.ok) {
         logger.error("Send Message response status: %d", response.status);
-
+        
         const data = await response.json() as ApiErrorResponse;
         throw new Error(
           `메시지 전송 실패: ${data.description} (코드: ${data.code})`,
         );
       }
 
+      // imageUrl: /images/sample.jpeg
+      const imageId = imageUrl.split("/")[2];
+      
+      await db.insert(messages).values({
+        userEmailId: req.emailId,
+        imageId: imageId!,
+        messageJson: JSON.stringify({
+          content,
+          targetCount,
+          targets,
+        }),
+      });
+      
       const responseData = await response.json();
       res.status(response.status).json({
         message: "Message sent successfully",
