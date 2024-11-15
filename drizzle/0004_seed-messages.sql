@@ -1,6 +1,6 @@
 -- Custom SQL migration file, put you code below! --
 INSERT INTO
-    `messages` (`message_json`, `user_email_id`, `image_id`)
+    `messages` (`message_json`, `sent_at`,  `user_email_id`, `image_id`)
 VALUES
     (
         '{
@@ -8,6 +8,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-03-01:23:45'),
         'foo@bar.com',
         'sample2.jpeg'
     ),
@@ -17,6 +18,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-04-01:23:45'),
         'foo@bar.com',
         'sample3.jpeg'
     ),
@@ -26,6 +28,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-07-01:23:45'),
         'foo@bar.com',
         'sample6.jpeg'
     ),
@@ -35,6 +38,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-08-01:23:45'),
         'foo@bar.com',
         'sample7.jpeg'
     ),
@@ -44,6 +48,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-09-01:23:45'),
         'foo@bar.com',
         'sample8.jpeg'
     ),
@@ -53,6 +58,7 @@ VALUES
             "targetCount": "2",
             "targets": ["01012345678", "01098765432"]
         }',
+        TIMESTAMP('2023-11-10-01:23:45'),
         'foo@bar.com',
         'sample9.jpeg'
     );

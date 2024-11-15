@@ -1,10 +1,11 @@
-import { json, mysqlTable, serial, varchar } from "drizzle-orm/mysql-core";
+import { json, mysqlTable, serial, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { images } from "./images";
 import { users } from "./users";
 
 export const messages = mysqlTable("messages", {
   id: serial("id").primaryKey().autoincrement(),
   messageJson: json("message_json").notNull(),
+  sentAt: timestamp("sent_at").defaultNow(), 
   userEmailId: varchar("user_email_id", { length: 256 }).notNull().references(
     () => users.emailId,
   ),

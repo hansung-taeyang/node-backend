@@ -1,6 +1,6 @@
 {
-  "id": "ced46d5f-bd85-43f6-9278-d98114c3de1f",
-  "prevId": "2a789eb9-7e32-4d83-9c3a-01931dde514d",
+  "id": "590b5924-f3dd-45d7-8290-265fb80d7418",
+  "prevId": "5197155c-4fc9-49a3-aa77-e05cea8c7418",
   "version": "5",
   "dialect": "mysql",
   "tables": {
@@ -86,6 +86,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "sent_at": {
+          "name": "sent_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         },
         "user_email_id": {
           "name": "user_email_id",

@@ -174,9 +174,10 @@ export class MessageController {
     logger.info("Messages: %o", result);
 
     res.status(StatusCodes.OK).json({
-      messages: result.map(({ imageId, messageJson }) => ({
+      messages: result.map(({ imageId, messageJson, sentAt }) => ({
         image: `/images/${imageId}`,
         messageJson: messageJson,
+        sentAt: sentAt
       }))
     });
   }
@@ -187,9 +188,10 @@ export class MessageController {
     });
 
     res.status(StatusCodes.OK).json({
-      messages: result.map(({ imageId, messageJson }) => ({
+      messages: result.map(({ imageId, messageJson, sentAt }) => ({
         image: `/images/${imageId}`,
         messageJson: messageJson,
+        sentAt: sentAt
       }))
     });
   }

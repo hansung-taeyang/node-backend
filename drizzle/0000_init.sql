@@ -10,6 +10,7 @@ CREATE TABLE `images` (
 CREATE TABLE `messages` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`message_json` json NOT NULL,
+	`sent_at` timestamp DEFAULT (now()),
 	`user_email_id` varchar(256) NOT NULL,
 	`image_id` varchar(256) NOT NULL,
 	CONSTRAINT `messages_id` PRIMARY KEY(`id`)
