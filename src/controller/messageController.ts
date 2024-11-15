@@ -147,7 +147,6 @@ export class MessageController {
         messageJson: JSON.stringify({
           content,
           targetCount,
-          targets,
         }),
       });
       
