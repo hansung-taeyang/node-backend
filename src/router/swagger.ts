@@ -8,7 +8,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Flutter Ppurio API",
+      title: "READ:ME API",
       version: "1.0.0",
     },
   },

@@ -12,32 +12,23 @@ const router = Router();
  *  post:
  *    summary: Create an image from Open AI
  *    requestBody:
- *      description: Request body requires prompt string. Style should be either `vivid` or `natural`. (`vivid` is the default)
+ *      description: Request body requires prompt string.
  *      required: true
  *      content:
  *        application/json:
  *          schema:
  *            $ref: '#/components/schemas/CreateImageRequest'
- *          example:
- *            prompt: Cute norwegian forest cat
- *            style: natural
  *    responses:
  *      200:
- *        description: Successfully created image with revised prompt string.
+ *        description: Successfully created an image
  *        content:
  *          application/json:
  *            schema:
  *              type: object
  *              properties:
- *                data:
- *                  type: object
- *                  properties:
- *                    revisedPrompt:
- *                      type: string
- *                    url:
- *                      type: string
- *                  description: The generated image data
-
+ *                url:
+ *                  type: string
+ *                  example: '/images/sample.jpeg'
  *      500:
  *        description: Internal server error
  *        content:
@@ -45,11 +36,48 @@ const router = Router();
  *            schema:
  *              type: object
  *              properties:
- *                error:
+ *                message:
  *                  type: string
+ *                  example: No image data found from OpenAI
  */
 router.post("/", validate(imageSchema), imageController.createImage);
 
+/**
+ * @openapi
+ * /v1/image/withLogin:
+ *  post:
+ *    security:
+ *      - bearerAuth: []
+ *    summary: Create an image from Open AI
+ *    requestBody:
+ *      description: Request body requires prompt string.
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/CreateImageRequest'
+ *    responses:
+ *      200:
+ *        description: Successfully created an image
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                url:
+ *                  type: string
+ *                  example: '/images/sample.jpeg'
+ *      500:
+ *        description: Internal server error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                message:
+ *                  type: string
+ *                  example: No image data found from OpenAI
+ */
 router.post("/withLogin", validate(imageSchema), checkLogin, imageController.createImage);
 
 // 로그인 한 유저가 생성한 모든 이미지를 배열 형식으로 리턴

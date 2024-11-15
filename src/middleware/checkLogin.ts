@@ -6,6 +6,16 @@ import { db } from "../db/db";
 import { users } from "../db/tables/users";
 import { eq } from "drizzle-orm";
 
+/**
+ * @openapi
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
+
 // Check if the user is logged in, using JWT
 export const checkLogin = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"];    
