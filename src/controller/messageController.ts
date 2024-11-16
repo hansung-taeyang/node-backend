@@ -117,21 +117,21 @@ export class MessageController {
         files: fileDataArray,
       };
 
-      
+
       const headers = {
         Authorization: `Bearer ${this.authData}`,
         "Content-Type": "application/json",
       };
-      
+
       const response = await fetch(this.API_URL, {
         method: "POST",
         headers,
         body: JSON.stringify(data),
       });
-      
+
       if (!response.ok) {
         logger.error("Send Message response status: %d", response.status);
-        
+
         const data = await response.json() as ApiErrorResponse;
         throw new Error(
           `메시지 전송 실패: ${data.description} (코드: ${data.code})`,
@@ -140,7 +140,7 @@ export class MessageController {
 
       // imageUrl: /images/sample.jpeg
       const imageId = imageUrl.split("/")[2];
-      
+
       await db.insert(messages).values({
         userEmailId: req.emailId,
         imageId: imageId!,
@@ -149,7 +149,7 @@ export class MessageController {
           targetCount,
         }),
       });
-      
+
       const responseData = await response.json();
       res.status(response.status).json({
         message: "Message sent successfully",
@@ -182,7 +182,7 @@ export class MessageController {
     });
   }
 
-  public getMessagesWithoutLogin = async (req: Request, res: Response, next: NextFunction) => { 
+  public getMessagesWithoutLogin = async (req: Request, res: Response, next: NextFunction) => {
     const result = await db.query.messages.findMany({
       where: eq(messages.userEmailId, "foo@bar.com")
     });
@@ -195,6 +195,28 @@ export class MessageController {
         sentAt: sentAt
       }))
     });
+  }
+
+  public deleteMessage = async (req: Request, res: Response, next: NextFunction) => {
+
+    const messageId = parseInt(req.params["messageId"]!.toString());
+    if (isNaN(messageId)) {
+      res.status(StatusCodes.BAD_REQUEST).json({
+        error: "Message ID must be a number"
+      });
+      return;
+    }
+
+    try {
+      await db.delete(messages).where(eq(messages.id, messageId));
+      res.status(StatusCodes.NO_CONTENT).json({
+        message: "Message deleted successfully"
+      });
+    } catch (error) {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+      next(error);
+    }
+
   }
 }
 

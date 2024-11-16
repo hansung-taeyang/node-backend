@@ -10,5 +10,6 @@ const controller = new MessageController();
 router.post("/", validate(messageSchema), controller.sendMessage);
 router.get("/withLogin", checkLogin, controller.getMessages);
 router.get("/", controller.getMessagesWithoutLogin);
+router.delete("/:messageId", checkLogin, controller.deleteMessage);
 
 export default router;
