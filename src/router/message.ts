@@ -7,7 +7,7 @@ import { checkLogin } from "../middleware/checkLogin";
 const router = Router();
 const controller = new MessageController();
 
-router.post("/", validate(messageSchema), controller.sendMessage);
+router.post("/", validate(messageSchema), checkLogin, controller.sendMessage);
 router.get("/withLogin", checkLogin, controller.getMessages);
 router.get("/", controller.getMessagesWithoutLogin);
 router.delete("/:messageId", checkLogin, controller.deleteMessage);
