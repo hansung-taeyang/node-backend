@@ -144,10 +144,10 @@ export class MessageController {
       await db.insert(messages).values({
         userEmailId: req.emailId,
         imageId: imageId!,
-        messageJson: JSON.stringify({
+        messageJson: {
           content,
           targetCount,
-        }),
+        },
       });
 
       const responseData = await response.json();
