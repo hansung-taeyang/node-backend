@@ -18,7 +18,9 @@ import message from "./router/message";
 const server = express();
 
 // NOTE - Middlewares
-server.use(httpLogger);
+if (env.NODE_ENV === "dev") {
+  server.use(httpLogger);
+}
 server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(bodyParser.json());
