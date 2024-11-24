@@ -78,15 +78,7 @@ router.post("/", validate(imageSchema), imageController.createImage);
  *                  type: string
  *                  example: No image data found from OpenAI
  */
-router.post("/withLogin", validate(imageSchema), checkLogin, imageController.createImage);
+router.post("/", validate(imageSchema), checkLogin, imageController.createImage);
 
-// 로그인 한 유저가 생성한 모든 이미지를 배열 형식으로 리턴
-/*
-[
-  {"imageId":"2GWh1VwmSmbJHicsigyeXu1ByiZ4-y7O45tq9svCWSE.jpeg","createdAt":"2024-11-02T12:54:43.000Z"},
-  {"imageId":"8wIK9uJRD6pH08NwCwHo4liXiWg0tzANYy1Zq6ZX28o.jpeg","createdAt":"2024-11-02T12:55:09.000Z"}
-]
-*/
-router.get("/withLogin", checkLogin, imageController.getAllImage);
-
+router.post("/withoutLogin", validate(imageSchema), imageController.createImage);
 export default router;
