@@ -202,7 +202,7 @@ export class MessageController {
     const messageId = parseInt(req.params["messageId"]!.toString());
     if (isNaN(messageId)) {
       res.status(StatusCodes.BAD_REQUEST).json({
-        error: "Message ID must be a number"
+        message: "Message ID must be a number"
       });
       return;
     }
