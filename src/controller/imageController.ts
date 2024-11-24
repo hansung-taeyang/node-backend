@@ -47,9 +47,9 @@ const generateFileNameFromBuffer = (buffer: Buffer): string => {
 };
 
 /**
- * Save the image as webp format
+ * Save the image as jpeg format
  * @param base64Image base64 image data from OpenAI
- * @returns name of the saved webp image
+ * @returns name of the saved jpeg image
  */
 const saveAsJpeg = async (base64Image: string): Promise<string> => {
   const imageBuffer = await sharp(Buffer.from(base64Image, "base64"))
@@ -113,32 +113,6 @@ export const createImage = async (req: Request, res: Response, next: NextFunctio
     res.status(StatusCodes.OK).json({
       url: `/images/${fileName}`
     });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getAllImage = async (req: Request, res: Response, next: NextFunction) => {
-  const emailId = req.emailId;
-  try {
-    // emailId 를 가지는 유저 레코드와 연관된 이미지들(일대다 관계) 중에서
-    // 이미지들을 {생성일자, 파일이름} 필드만 뽑아서 리턴함.
-    const result = await db.query.users.findFirst({
-      where: eq(users.emailId, emailId),
-      with: {
-        createdImages: {
-          columns: {
-            createdAt: true,
-            imageId: true,
-            id: false,
-            userEmailId: false
-          },
-          orderBy: (createdImages, { desc }) => [desc(createdImages.createdAt)],
-        }
-      },
-    });
-    const userImages = result?.createdImages;
-    return res.status(StatusCodes.OK).json([...userImages!]);
   } catch (error) {
     next(error);
   }
