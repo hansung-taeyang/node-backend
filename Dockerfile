@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS base
+FROM node:current-alpine3.19 AS base
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ COPY . .
 ENV NODE_ENV=production
 RUN npm run build && npm prune --omit=dev
 
-FROM node:lts-alpine
+FROM node:current-alpine3.19
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
@@ -24,6 +24,6 @@ COPY --from=build --chown=runner:nodejs /app/package.json ./package.json
 COPY --from=build --chown=runner:nodejs /app/public/images/sample*.jpeg ./public/images/
 
 USER runner
-EXPOSE 3000
+EXPOSE 9999
 
 CMD ["npx", "dotenvx", "run", "--", "node", "dist/index.js"]
