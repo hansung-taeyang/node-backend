@@ -11,44 +11,9 @@ const router = Router();
  * /v1/image:
  *  post:
  *    summary: Create an image from Open AI
- *    requestBody:
- *      description: Request body requires prompt string.
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/CreateImageRequest'
- *    responses:
- *      200:
- *        description: Successfully created an image
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                url:
- *                  type: string
- *                  example: '/images/sample.jpeg'
- *      500:
- *        description: Internal server error
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                message:
- *                  type: string
- *                  example: No image data found from OpenAI
- */
-router.post("/", validate(imageSchema), imageController.createImage);
-
-/**
- * @openapi
- * /v1/image/withLogin:
- *  post:
+ *    tags: [Image]
  *    security:
  *      - bearerAuth: []
- *    summary: Create an image from Open AI
  *    requestBody:
  *      description: Request body requires prompt string.
  *      required: true
@@ -67,6 +32,9 @@ router.post("/", validate(imageSchema), imageController.createImage);
  *                url:
  *                  type: string
  *                  example: '/images/sample.jpeg'
+ *      401:
+ *        description: Unauthorized access
+ *        $ref: '#/components/responses/UnauthorizedError'
  *      500:
  *        description: Internal server error
  *        content:

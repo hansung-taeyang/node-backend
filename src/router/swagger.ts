@@ -12,7 +12,7 @@ const options: swaggerJsdoc.Options = {
       version: "1.0.0",
     },
   },
-  apis: [`${__dirname}/*.[jt]s`, `${__dirname}/../zod-schema/*.[jt]s`],
+  apis: [`${__dirname}/*.[jt]s`, `${__dirname}/../zod-schema/*.[jt]s`, `${__dirname}/../middleware/checkLogin.[jt]s`],
 };
 
 const specs = swaggerJsdoc(options);

@@ -19,6 +19,7 @@ import { z } from "zod";
  *         phone:
  *           type: string
  *           pattern: '\d{11}'
+ *       required: [email, password, phone]
  *       example:
  *         email: 'foo@bar.com'
  *         password: test1234!

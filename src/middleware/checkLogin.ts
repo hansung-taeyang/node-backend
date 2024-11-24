@@ -14,6 +14,17 @@ import { eq } from "drizzle-orm";
  *       type: http
  *       scheme: bearer
  *       bearerFormat: JWT
+ *   responses:
+ *     UnauthorizedError:
+ *       description: Unauthorized access
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *                 example: No token provided
  */
 
 // Check if the user is logged in, using JWT

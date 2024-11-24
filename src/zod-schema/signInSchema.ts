@@ -13,6 +13,7 @@ import { z } from "zod";
  *         password:
  *           type: string
  *           format: password
+ *       required: [email, password]
  *       example:
  *         email: 'foo@bar.com'
  *         password: test1234!

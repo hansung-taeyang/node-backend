@@ -42,8 +42,9 @@ export type ImageStyle = z.infer<typeof imageEnum>
  *           description: 원하는 이미지 스타일
  *           schema:
  *             $ref: '#/components/schemas/ImageStyleEnum'
+ *       required: [prompt, style]
  *       example:
- *         prompt: >
+ *         prompt: >-
  *           장르: 장편소설, 추리/미스터리. 책 소개: 외딴 산장에 여덟 명의 남녀가 모인 가운데 한밤중 은행 강도범이 침입해 인질극을 벌인다.
  *           인질들은 수차례 탈출을 시도하지만 번번이 실패하고, 강도범과 인질들 사이에 숨 막히는 줄다리기가 펼쳐지는 가운데 인질 한 명이 살해된 체 발견된다.
  *         style: 'flat design'

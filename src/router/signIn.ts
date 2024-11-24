@@ -10,6 +10,7 @@ const router = Router();
  * /v1/signIn:
  *   post:
  *     summary: Sign in to the application
+ *     tags: [User]
  *     requestBody:
  *       description: Request body requires email and password
  *       required: true
