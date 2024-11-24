@@ -8,8 +8,8 @@ const router = Router();
 const controller = new MessageController();
 
 router.post("/", validate(messageSchema), checkLogin, controller.sendMessage);
-router.get("/withLogin", checkLogin, controller.getMessages);
-router.get("/", controller.getMessagesWithoutLogin);
+router.get("/", checkLogin, controller.getMessages);
+
 router.delete("/:messageId", checkLogin, controller.deleteMessage);
 
 export default router;
