@@ -8,11 +8,11 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Flutter Ppurio API",
+      title: "READ:ME API",
       version: "1.0.0",
     },
   },
-  apis: ["./src/routes/*.ts"],
+  apis: [`${__dirname}/*.[jt]s`, `${__dirname}/../zod-schema/*.[jt]s`, `${__dirname}/../middleware/checkLogin.[jt]s`],
 };
 
 const specs = swaggerJsdoc(options);
