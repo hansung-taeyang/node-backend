@@ -22,8 +22,10 @@ COPY --from=build --chown=runner:nodejs /app/.env.prod ./.env.prod
 COPY --from=build --chown=runner:nodejs /app/node_modules ./node_modules
 COPY --from=build --chown=runner:nodejs /app/package.json ./package.json
 COPY --from=build --chown=runner:nodejs /app/public/images/sample*.jpeg ./public/images/
+COPY --from=build --chown=runner:nodejs /app/drizzle ./drizzle
+COPY --from=build --chown=runner:nodejs /app/drizzle.config.js ./drizzle.config.js
 
 USER runner
-EXPOSE 9999
+EXPOSE 3000
 
-CMD ["npx", "dotenvx", "run", "--", "node", "dist/index.js"]
+CMD ["npx", "dotenvx", "run", "--", "npm", "run", "start"]
