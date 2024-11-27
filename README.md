@@ -15,17 +15,28 @@
 4. `npm install`로 패키지 설치
 5. Docker 켜기
 6. `docker compose -f ../compose.db.yml up -d`로 `db`라는 이름의 MySQL 컨테이너 실행
-7. `npx drizzle-kit push`로 MySQL에 실제 테이블 생성
+7. `npx drizzle-kit migrate`로 MySQL에 실제 테이블 생성
+    - 이때, 현재 저장소 폴더에 `drizzle`이라는 폴더가 없다면, `npx drizzle-kit generate`를 실행하고 7번 다시 실행.
 8. `npm run dev`로 Node.js 백엔드 서버 구동
 
 ## 자주 묻는 질문 
 
 VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정합니다.
 
+### DB 마이그레이션만 다시 하는 법
+
+1. [DB 컨테이너 다시 만들거나](#nodejs-로그에-mysql-어쩌구저쩌구-오류-뜸)
+2. `docker exec -it db mysql -u root -p`로 MySQL 컨테이너에 직접 접속한다.
+    - `root` 로 비밀번호를 입력한다.
+    - `drop database capstonedb;` 하고 `create database capstonedb;`로 데이터베이스를 다시 만든다.
+    - `npx drizzle-kit migrate`로 DB 마이그레이션 다시 해서 샘플 데이터를 다시 넣으면 된다.
+    - 뭔 소리인지 모르겠으면 [DB 컨테이너 다시 만들면 됨.](#nodejs-로그에-mysql-어쩌구저쩌구-오류-뜸)
+
 ### Node.js 서버 돌릴려니깐 무슨 `import`를 찾을 수 없다고 나옴
 
-다른 팀원이 개발하면서 새로운 npm 패키지를 추가하고, 이를 커밋/푸시한 모양입니다. 변경사항을 `git pull` 했다면, `npm i` 혹은 `npm install`로 새로운 패키지들을 설치해줍시다.
+다른 팀원이 개발하면서 새로운 npm 패키지를 추가하고, 이를 커밋/푸시한 모양입니다.
 
+변경사항을 `git pull` 했다면, `npm i` 혹은 `npm install`로 새로운 패키지들을 설치해줍시다.
 
 ### DB 실행 어떻게 함?
 
@@ -34,8 +45,8 @@ VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정�
 3. `docker compose -f ../compose.db.yml up -d` 실행
     - DB 컨테이너를 만드는데, `compose.db.yml` 스크립트를 참고하여 컨테이너를 생성하고, 컨테이너를 실행한다는 뜻
     - 잘 실행되었다면, Docker Desktop의 `Containers`에 `ppurio-service/db`의 컨테이너가 생성되어 돌고 있다.
-4. `npx drizzle-kit push` 실행
-    - `src/db/tables/**.ts` 파일들(DB 테이블을 TypeScript로 정의한 것들)을 읽어서 Drizzle이 알아서 Docker에서 돌아가고 있는 MySQL 컨테이너에서 실행하여 MySQL에 실제 테이블을 생성한다는 뜻
+4. `npx drizzle-kit migrate` 실행
+    - `drizzle` 폴더 안에 만들어져있는 `.sql` 파일들을 돌려서 테이블 생성 및 샘플 데이터 삽입함.
 5. `npx drizzle-kit studio`로 크롬창에서 DB를 볼 수 있다.
     - MySQL 클라이언트 따로 쓸거면 그렇게 해도 됨.
     - 터미널에서 `docker exec -it db sh`로 `db` 컨테이너에 직접 쉘 열어서 `mysql -u root -p`로 실행해도 됨.
@@ -44,16 +55,18 @@ VS Code에서 현재 저장소(`node-backend`)를 폴더로 열었다고 가정�
 
 일단 Docker를 켜놨는가?? 켜져있었는데 오류가 났다면, DB 컨테이너를 다시 만들어보자. 아래에 과정이 적혀있다.
 
-1. Docker Desktop을 열어서, `Containers`에서 `ppurio-service` 컨테이너를 (옵션: 정지하고) 제거한다.
+1. Docker Desktop을 열어서, `Containers`에서 `db` 컨테이너를 제거한다. 못 지우면 일단 정지시키고 지워본다.
 2. Docker Desktop에서 `Volumes`로 들어가서 `db_data` 볼륨을 제거한다.
 3. `node-backend` 폴더 (현재 이 저장소)에서 터미널을 연다.
 4. `docker compose -f ../compose.db.yml up -d`를 실행
-5. `npx drizzle-kit push`를 실행
+5. `npx drizzle-kit migrate` 실행
 6. `npm run dev`로 Node.js 백엔드 다시 켜서 잘 되는지 확인.
 
 ---
 
 참고: Docker 컨테이너, 볼륨 지우는건 아래의 명령으로도 가능함. 아래에 있는 경로명은 당연히 내 것과 다르니 참고.
+
+아래의 과정을 마치고 위의 5,6번을 다시 한다.
 
 작업 폴더는 `node-backend`를 기준으로 설명함.
 
