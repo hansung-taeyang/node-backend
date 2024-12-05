@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "dev": "dotenvx run -- tsx watch src/index.ts",
+        "dev": "dotenvx run -f ./.env -- tsx watch src/index.ts",
+        "debug": "dotenvx run -f ./.env -- tsx --inspect-brk src/index.ts",
         "build": "tsc --project tsconfig.json",
         "start": "drizzle-kit migrate && node dist/index.js"
     },
