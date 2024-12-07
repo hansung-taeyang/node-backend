@@ -19,7 +19,7 @@ const idDuplicateCheckController = async (
       where: eq(users.emailId, email),
     });
 
-    if (result !== null) {
+    if (result !== undefined) {
       return res
         .status(StatusCodes.CONFLICT)
         .json({ message: "User already exists" });

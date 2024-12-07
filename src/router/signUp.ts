@@ -40,6 +40,6 @@ const router = Router();
  *           example: User already exists
  */
 router.post("/", validate(signUpSchema), signUpController);
-router.post("/idDuplicateCheck ", idDuplicateCheckController);
+router.post("/idDuplicateCheck", idDuplicateCheckController);
 
 export default router;
