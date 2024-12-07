@@ -18,7 +18,7 @@ RUN adduser --system --uid 1001 runner
 
 ENV NODE_ENV=production
 COPY --from=build --chown=runner:nodejs /app/dist ./dist
-COPY --from=build --chown=runner:nodejs /app/.env.prod ./.env.prod
+COPY --from=build --chown=runner:nodejs /app/.env ./.env
 COPY --from=build --chown=runner:nodejs /app/node_modules ./node_modules
 COPY --from=build --chown=runner:nodejs /app/package.json ./package.json
 COPY --from=build --chown=runner:nodejs /app/public/images/sample*.jpeg ./public/images/
