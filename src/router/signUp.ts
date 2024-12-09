@@ -1,7 +1,7 @@
 import { validate } from "../middleware/validate";
 import { signUpSchema } from "../zod-schema/signUpSchema";
 import { Router } from "express";
-import signUpController from "../controller/signUpController";
+import { signUpController, idDuplicateCheckController } from "../controller/signUpController";
 
 const router = Router();
 
@@ -40,5 +40,6 @@ const router = Router();
  *           example: User already exists
  */
 router.post("/", validate(signUpSchema), signUpController);
+router.post("/idDuplicateCheck", idDuplicateCheckController);
 
 export default router;
