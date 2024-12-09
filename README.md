@@ -1,5 +1,10 @@
 # Backend README
 
+## 소스 코드 구성
+
+![precap-code](https://github.com/user-attachments/assets/a28aa07e-4251-4f9d-b8d0-4e6fbdc521ae)
+
+
 ## 준비물
 - [Docker](https://www.docker.com/)
 - Visual Studio Code
